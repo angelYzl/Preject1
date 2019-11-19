@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogActivity">
+    <EditText
+    android:id="@+id/log_user"
+    android:hint="用户名"
+    android:layout_width="200dp"
+    android:layout_height="40dp"
+    android:layout_marginTop="150dp" />
+    <EditText
+        android:id="@+id/log_pass"
+        android:hint="密码"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        />
+    <EditText
+        android:hint="确认密码"
+        android:id="@+id/log_passwrod"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp" />
+    <EditText
+        android:hint="手机号"
+        android:id="@+id/log_phone"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp" />
+    <EditText
+        android:hint="验证码"
+        android:id="@+id/log_ver_code"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="注册" />
+    </LinearLayout>
+
+</LinearLayout>
