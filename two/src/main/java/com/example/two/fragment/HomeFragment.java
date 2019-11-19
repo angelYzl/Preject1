@@ -2,6 +2,7 @@ package com.example.two.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,11 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.example.two.DbUtils;
 import com.example.two.R;
 import com.example.two.adapter.HomeAdapter;
 import com.example.two.bean.HomeBean;
+import com.example.two.bean.StudentBean;
 import com.example.two.prestenter.ImpHomePrestenter;
 import com.example.two.view.HomeView;
 
@@ -74,12 +77,11 @@ public class HomeFragment extends Fragment implements HomeView, HomeAdapter.Item
     }
 
     @Override
-    public void itemLongClick(int pos) {
-        View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.item_pop, null, false);
-        final PopupWindow popupWindow = new PopupWindow(inflate, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        popupWindow.showAsDropDown(mRecycler, 100, 100);
-        popupWindow.setBackgroundDrawable(null);
-        popupWindow.setOutsideTouchable(true);
+    public void itemLongClick(final int pos) {
+        Toast.makeText(getActivity(), "长按了item", Toast.LENGTH_SHORT).show();
+        final View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.item_pop, null);
+         final PopupWindow popupWindow = new PopupWindow(inflate,ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
 
         mBtnOk = (Button) inflate.findViewById(R.id.btn_ok);
         mBtnNo = (Button) inflate.findViewById(R.id.btn_no);
@@ -92,9 +94,24 @@ public class HomeFragment extends Fragment implements HomeView, HomeAdapter.Item
         mBtnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "已添加", Toast.LENGTH_SHORT).show();
+                StudentBean studentBean = new StudentBean();
+                studentBean.setId(Long.valueOf(pos));
+                studentBean.setText(list.get(pos).getNews_id()+"");
+                studentBean.setTitle(list.get(pos).getTitle());
+                studentBean.setUrl(list.get(pos).getThumbnail());
+                long insert = DbUtils.getDbUtils().insert(studentBean);
+                if (insert>=0){
+                    Toast.makeText(getActivity(), "已添加", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "添加失败", Toast.LENGTH_SHORT).show();
+                }
+
+                popupWindow.dismiss();
             }
         });
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setOutsideTouchable(true);
 
+        popupWindow.showAtLocation(mRecycler, Gravity.CENTER,0, 0);
     }
 }
