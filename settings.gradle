@@ -1,2 +1,2 @@
-include ':app', ':two'
+include ':app', ':two', ':three'
 rootProject.name='Prejects'
